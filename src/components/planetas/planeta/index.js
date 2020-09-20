@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import ImagemCinza from '../../shared/imagemCinza';
+import DescricaoComLink from '../../shared/descricaoComLink';
 
 const Planeta = (props) => {
 	return(
@@ -7,7 +8,7 @@ const Planeta = (props) => {
 			
 			<h4>{props.nome}</h4>
 			
-			<p>{props.descricao}</p>
+			<DescricaoComLink link={props.link} descricao={props.descricao} nome={props.nome}/>
 
 			<ImagemCinza img_url={ props.img_url } alt_valor={ props.alt_valor } />
 		</Fragment>
