@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import Planeta from './planeta';
 
 async function getPlanetas(){
@@ -7,50 +7,36 @@ async function getPlanetas(){
 	return data;
 }
 
+const Planetas = () => {
+	let [planetas, setPlanetas] = useState([]);
 
-class Planetas extends React.Component {
-	
-	constructor(props){
-		super(props);
-		this.state = {
-			planetas: []
-		}
-	}
+	useEffect(() => {
 
-	componentDidMount() {
-		getPlanetas().then((data) => {
-			this.setState(state => ({
-				planetas: data['planets']
-			})
+		getPlanetas().then((data) =>
+			setPlanetas(data['planets'])
 		)
-		})
+	},[]  );
+
+	const duplicarUltimoPlaneta = () => {
+		let ultimo_planeta = planetas[planetas.length - 1];
+		setPlanetas([...planetas, ultimo_planeta])
 	}
 
-	duplicarUltimoPlaneta = () => {
-		let ultimo_planeta = this.state.planetas[this.state.planetas.length - 1];
-		this.setState(state => ({
-			planetas: [...this.state.planetas, ultimo_planeta]
-		}))
-	}
-
-	removerUltimoPlaneta = () =>{
-		let clonePlanetas = [...this.state.planetas]
+	const removerUltimoPlaneta = () => {
+		let clonePlanetas = [...planetas];
 		clonePlanetas.pop();
-		this.setState(state => ({
-			planetas: clonePlanetas
-		}))
+		setPlanetas(clonePlanetas)
 	}
 
-	render(){
 		return(	
 			<Fragment>
 				<h3> Lista de Planetas </h3>
 				<hr/>
-				<button onClick={this.removerUltimoPlaneta}>Remover último planeta</button>
-				<button onClick={this.duplicarUltimoPlaneta}>Acrescentar planeta</button>
+				<button onClick={removerUltimoPlaneta}>Remover último planeta</button>
+				<button onClick={duplicarUltimoPlaneta}>Acrescentar planeta</button>
 				<hr/>
 				{
-					this.state.planetas.map((planeta, index) =>
+					planetas.map((planeta, index) =>
 						<Planeta key ={index} nome = {planeta.name}
 										 descricao = {planeta.description}
 										 img_url = {planeta.img_url}
@@ -61,7 +47,6 @@ class Planetas extends React.Component {
 				}
 			</Fragment>
 			)
-	}
 }
 
 export default Planetas;
