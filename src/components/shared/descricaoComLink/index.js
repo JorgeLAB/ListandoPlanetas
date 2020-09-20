@@ -13,7 +13,7 @@ const DescricaoComLink = (props) => {
 				{props.descricao}
 			</p>		
 			<p>
-				<a href={props.link} target="_blank"> Link para {props.nome}
+				<a href={props.link} > Link para {props.nome}
 				</a>
 			</p>
 		</Fragment>
