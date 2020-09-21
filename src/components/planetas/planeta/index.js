@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from "react";
+import React, {Fragment} from "react";
 import ImagemCinza from '../../shared/imagemCinza';
 import DescricaoComLink from '../../shared/descricaoComLink';
 

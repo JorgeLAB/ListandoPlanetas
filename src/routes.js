@@ -7,7 +7,7 @@ const Routes = () => (
 	<BrowserRouter>
 		<Switch>
 			<Route exact path='/' component={PlanetasScreen} /> 
-			<Route exact path='/planeta' component={PlanetaScreen} /> 
+			<Route exact path='/planeta/:id' component={PlanetaScreen} /> 
 		</Switch>
 	</BrowserRouter>
 )

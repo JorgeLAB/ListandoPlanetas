@@ -2,21 +2,27 @@ import React, {Fragment, useState, useEffect} from "react";
 import ImagemCinza from '../shared/imagemCinza';
 import DescricaoComLink from '../shared/descricaoComLink';
 import Form from './form';
+import { useParams } from 'react-router-dom'
 
 
-async function getSatelites(id){
+async function getPlaneta(id){
 	let response = await fetch(`http://localhost:3000/api/${id}.json`);
 	let data = await response.json(); 
 	return data;
 }
 
-const Planeta = (props) => {
+const Planeta = () => {
 	let [satelites, setSatelites] = useState([])
+	let [planeta, setPlaneta] = useState({})
+	let {id} = useParams();
 
 	useEffect(() => {
-		getSatelites(props.id).then((data) => 
+		getPlaneta(id).then((data) =>{
+			setPlaneta(data['data'])
 			setSatelites(data['satellites'])
-	)}, [props]);
+		} 
+	)}, [id]);
+
 
 const adicionandoSatelites = (novo_satelite) =>{
 	setSatelites([...satelites, novo_satelite]);
@@ -24,10 +30,10 @@ const adicionandoSatelites = (novo_satelite) =>{
 
 return(
 	<Fragment>
+		<h4>{planeta.name}</h4>
+		<DescricaoComLink link={planeta.link} descricao={planeta.descricao} nome={planeta.nome}/>
+		<ImagemCinza img_url={ planeta.img_url } alt_valor={ planeta.alt_valor } />
 		
-		<h4>{props.nome}</h4>
-		<DescricaoComLink link={props.link} descricao={props.descricao} nome={props.nome}/>
-		<ImagemCinza img_url={ props.img_url } alt_valor={ props.alt_valor } />
 		<h5>Lista de Satélites</h5>
 		<hr/>
 		<h6>Adicionar mais satélites</h6>
