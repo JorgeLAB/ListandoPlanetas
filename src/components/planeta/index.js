@@ -2,7 +2,7 @@ import React, {Fragment, useState, useEffect} from "react";
 import ImagemCinza from '../shared/imagemCinza';
 import DescricaoComLink from '../shared/descricaoComLink';
 import Form from './form';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Redirect } from 'react-router-dom'
 
 
 async function getPlaneta(id){
@@ -14,6 +14,7 @@ async function getPlaneta(id){
 const Planeta = () => {
 	let [satelites, setSatelites] = useState([])
 	let [planeta, setPlaneta] = useState({})
+	let [redirect, setRedirect] = useState(false);
 	let {id} = useParams();
 	let history = useHistory();
 
@@ -21,6 +22,8 @@ const Planeta = () => {
 		getPlaneta(id).then((data) =>{
 			setPlaneta(data['data'])
 			setSatelites(data['satellites'])
+		}, error => {
+			setRedirect(true);
 		} 
 	)}, [id]);
 
@@ -31,6 +34,10 @@ const Planeta = () => {
 
 const adicionandoSatelites = (novo_satelite) =>{
 	setSatelites([...satelites, novo_satelite]);
+}
+
+if(redirect){
+	return <Redirect to={'/'} />
 }
 
 return(

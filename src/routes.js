@@ -2,12 +2,16 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import PlanetasScreen from './screens/planetas.js';
 import PlanetaScreen from './screens/planeta.js';
+import PaginaNaoEncontrada from './screens/paginaNaoEncontrada.js';
 
 const Routes = () => (
 	<BrowserRouter>
 		<Switch>
 			<Route exact path='/' component={PlanetasScreen} /> 
-			<Route exact path='/planeta/:id' component={PlanetaScreen} /> 
+			<Route exact path='/planeta/:id' component={PlanetaScreen} />
+			<Route exact path='*'>
+				<PaginaNaoEncontrada />
+			</Route> 
 		</Switch>
 	</BrowserRouter>
 )
