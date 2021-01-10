@@ -1,6 +1,5 @@
 import React, {Fragment, useState} from 'react';
 
-
 const Form = (props) => {
 	const estadoInicial = {
 		name: '',
